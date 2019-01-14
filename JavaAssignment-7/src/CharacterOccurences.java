@@ -6,14 +6,14 @@ public class CharacterOccurences {
     public static void main(String args[]) throws FileNotFoundException
     {
         int length=0;
-        String argsString="";
+        String argsFileName="";
 
         for(int i=0;i<args.length;i++){
-            argsString+=args[i];
+            argsFileName+=args[i];
         }
-        System.out.println("Given file name path is : "+argsString);
+        System.out.println("Given file name path is : "+argsFileName);
 
-        File file=new File(argsString);
+        File file=new File(argsFileName);
         BufferedReader br=new BufferedReader(new FileReader(file));
         String st;
         String str="";

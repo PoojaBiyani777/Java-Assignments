@@ -28,23 +28,16 @@ public class FileAbsolutePath {
     }
 }
 /*
-1.
-Enter the files names
-.java
-No such files!
-    
-2.
-.js
-/home/pooja/genesis.json
-
-3.
+1. Test Case
+Enter the files Regular Expressions
 .txt
 /home/pooja/a.txt
 /home/pooja/emp.txt
 
-4.
-LMS	
-No such files!
+2.Test Case
+Enter the files Regular Expressions
+.jo
+You don't have files with such Regular Expression! 
 
 
 */

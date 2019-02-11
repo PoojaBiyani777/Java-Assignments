@@ -1,64 +1,50 @@
 import java.io.File;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+public class FileAbsolutePath {
+    public static void main(String args[]) throws Exception {
+        File homeDirectory = new File("/home/pooja");   // home directory
+        System.out.println("Enter the files Regular Expressions");
+        Scanner sc = new Scanner(System.in);
+        File[] listOfFiles = homeDirectory.listFiles();    // stores abstract pathnames of all files and  directories present in homeDirectory
 
-public class FileAbsolutePath{
-
-    private static int getFile(File file, String regex){
-
-        boolean found = false;
-        int count = 0;
-        for(File files : file.listFiles()){
-            if(files.isDirectory()){		//go back searching inside the directory
-                count+=getFile(files,regex);
-            }
-            else if(files.isFile()){        //found the file inside the directory
-                String fileName = files.getName();
-                found = Pattern.matches(regex, fileName);
-                if(found){
-                    System.out.println(files.getAbsolutePath());
-                    count++;
+        while (sc.hasNext()) {
+            int numberOfFiles=0;
+            Pattern p = Pattern.compile(sc.next());    // compiles the pattern input
+            for (File file : listOfFiles)
+                if (file.isFile()) {
+                    String fileName = file.getName();
+                    Matcher m = p.matcher(fileName);
+                    if (m.find()) {
+                        System.out.println(file.getAbsolutePath());    // prints the whole path of the matched file
+                        numberOfFiles++;
+                    }
                 }
-
-            }
-
+            if(numberOfFiles==0)
+                System.out.println("You don't have files with such Regular Expression! ");
         }
-        return count;
-
     }
-
-
-    public static void main(String[] args) {
-
-        Scanner scan = new Scanner(System.in);
-        String regex = null;
-        File root = new File("/home");
-        File[] listOfFiles = root.listFiles();
-
-        for(int i=0;i<listOfFiles.length;i++)
-            System.out.println(listOfFiles[i]);
-
-        int count=0;
-        while(true){
-            System.out.println("Enter a regular expression to search files, to quit enter -1");
-            regex = scan.nextLine();
-
-            if(regex.equals("-1")){
-                break;
-            }
-
-            count+=getFile(root,regex);	// searches for file names in bases folder
-
-            if(count==0){
-                System.out.println("File not found!");
-            }
-
-
-        }
-
-        scan.close();
-
-    }
-
 }
+/*
+1.
+Enter the files names
+.java
+No such files!
+    
+2.
+.js
+/home/pooja/genesis.json
+
+3.
+.txt
+/home/pooja/a.txt
+/home/pooja/emp.txt
+
+4.
+LMS	
+No such files!
+
+
+*/
